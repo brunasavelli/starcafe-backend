@@ -1,18 +1,23 @@
-const Movie = require("../models/Movie");
-const MovieList = require("../models/MovieList");
+const Menu = require("../models/Menu");
+const Item = require("../models/Item");
 
-const lista = new MovieList();
+const lista = new MenuList();
 
-const filme1 = new Movie('Diário de uma Paixão', 'Nick Cassavetes', '2004', 'Romance', 10, false);
-lista.addMovie(filme1);
-
-lista.addMovie(new Movie('10 Coisas que Odeio em Você', 'Gil Junger', '1999', 'Romance', 10, false));
+lista.addItem(new Item('Salgado', 'Pão de Queijo', 'R$3,00'));
+lista.addItem(new Item('Salgado', 'Misto Quente', 'R$7,00'));
+lista.addItem(new Item('Salgado', 'Coxinha', 'R$5,00'));
+lista.addItem(new Item('Doce', 'Carolina', 'R$5,00'));
+lista.addItem(new Item('Doce', 'Brigadeiro', 'R$2,00'));
+lista.addItem(new Item('Doce', 'Cookie', 'R$6,00'));
+lista.addItem(new Item('Bebida', 'Água', 'R$3,00'));
+lista.addItem(new Item('Bebida', 'Café Preto', 'R$3,00'));
+lista.addItem(new Item('Bebida', 'Suco de Maracujá', 'R$10,00'));
 
 const router = {
-    addMovie: (req,res) => {
+    addItem: (req,res) => {
         try {
-            const{title, director, year, genre} = req.body;
-            if(!title || !director || !year || !genre) {
+            const{type, description, price} = req.body;
+            if(!type || !description || !price) {
                 throw newError('Preencha todos os campos!')
             }
             const movie = new Movie(title, director, year, genre);
