@@ -1,8 +1,14 @@
 class Menu {
-    constructor(type, description, price) {
-        this.type = type;
-        this.description = description;
-        this.price = price;
+    constructor() {
+        this.items = [];
+    }
+    
+    addItem(item) {
+        this.items.push(item);
+    }
+
+    getAllItems() {
+        return this.items;
     }
 }
 
