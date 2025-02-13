@@ -1,7 +1,7 @@
 const Menu = require("../models/Menu");
 const Item = require("../models/Item");
 
-const lista = new MenuList();
+const lista = new Menu();
 
 lista.addItem(new Item('Salgado', 'Pão de Queijo', 'R$3,00'));
 lista.addItem(new Item('Salgado', 'Misto Quente', 'R$7,00'));
@@ -20,46 +20,38 @@ const router = {
             if(!type || !description || !price) {
                 throw newError('Preencha todos os campos!')
             }
-            const movie = new Movie(title, director, year, genre);
-            lista.addMovie(movie);
-            res.status(200).json({message: 'Filme adicionado com sucesso!'})
+            const item = new Item(type, description, price);
+            lista.addItem(item);
+            res.status(200).json({message: 'Item adicionado com sucesso!'})
         } catch (error) {
-            res.status(400).json({message: 'Erro ao adicionar filme', error});
+            res.status(400).json({message: 'Erro ao adicionar item', error});
         }
     },
 
-    getAllMovies: (req, res) => {
+    getAllItems: (req, res) => {
         try {
-            const movies = lista.getAllMovies();
-            res.status(200).json(movies);
+            const items = lista.getAllItems();
+            res.status(200).json(items);
         } catch (error) {
-            res.status(404).json({message: 'Erro ao buscar filmes', error});
+            res.status(404).json({message: 'Erro ao buscar items', error});
         }
     },
 
-    getMovieById: (req, res) => {
+    getItemById: (req, res) => {
         try {
             const id = req.params.id;
-            res.status(200).json(lista.getMovieById(id));
+            res.status(200).json(lista.getItemById(id));
         } catch (error) {
-            res.status(404).json({message: 'Erro ao buscar filme por id', error});
+            res.status(404).json({message: 'Erro ao buscar item por id', error});
         }
     },
 
-    updateMovie: (req, res) => {
+    deleteItem: (req, res) => {
         try {
-            res.status(200).json(lista.updateMovie(req.params.id, req.body));
+            lista.deleteItem(req.params.id);
+            res.status(200).json({message: 'Item deletado com sucesso'});
         } catch (error) {
-            res.status(404).json({message: 'Erro ao atualizar filme', error});
-        }
-    },
-
-    deleteMovie: (req, res) => {
-        try {
-            lista.deleteMovie(req.params.id);
-            res.status(200).json({message: 'Filme deletado com sucesso'});
-        } catch (error) {
-            res.status(404).json('Erro ao deletar filme', error);
+            res.status(404).json({message: 'Erro ao deletar item', error});
         }
     }
 };
