@@ -12,7 +12,7 @@ const router = {
     addOrder: (req, res) => {
         try {
             const{clientName, type, description, price} = req.body;
-            if(!clientName || !type || !description || !price) {
+            if(!clientName || !type || !description || !price ) {
                 throw newError('Preencha todos os campos!')
             }
             const order = new Order(clientName, type, description, price);
