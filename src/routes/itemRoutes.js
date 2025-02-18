@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const menuController = require("../controllers/menuController");
 
-router.get("/items", menuController.getAllItems);
-router.post("/items", menuController.addItem);
-router.delete("/items/:id", menuController.deleteItem);
-router.get("/items/:id", menuController.getItemById);
+router.get("/menu", menuController.getAllItems);
+router.post("/menu", menuController.addItem);
+router.delete("/menu/:id", menuController.deleteItem);
+router.get("/menu/:id", menuController.getItemById);
 
 module.exports = router;

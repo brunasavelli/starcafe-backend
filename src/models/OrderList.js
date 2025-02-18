@@ -12,7 +12,7 @@ class OrderList {
     }
 
     getOrderById(id) {
-        const order = this.orders.find((order) => order.id == id);
+        const order = this.orders.find(order => order.id == id);
         if(!order) {
             throw new Error("Pedido não encontrado");
         }
@@ -20,7 +20,7 @@ class OrderList {
     }
 
     deleteOrder(id) {
-        this.order = this.orders.filter(order => order.id != id);
+        this.orders = this.orders.filter(order => order.id != id);
     }
 }
 

@@ -12,7 +12,7 @@ const router = {
     addOrder: (req, res) => {
         try {
             const{clientName, type, description, price} = req.body;
-            if(!clientName || !type || !description || !price || !status) {
+            if(!clientName || !type || !description || !price) {
                 throw newError('Preencha todos os campos!')
             }
             const order = new Order(clientName, type, description, price);
@@ -34,13 +34,8 @@ const router = {
 
     getOrderById: (req, res) => {
         try {
-            const id = req.params.id;
-            const order = listing.getOrderById(id);
-            if(order) {
-                res.status(200).json({clientName: order.clientName, status: order.status});
-            } else {
-                res.status(404).json({message: 'Pedido não encontrado'})
-            }
+            const order = list.getOrderById(req.params.id);
+            res.json({message: 'Pedido encontrado', pedido: order});
         } catch (error) {
             res.status(404).json({message: 'Erro ao buscar pedido', error});
         }
@@ -48,6 +43,10 @@ const router = {
 
     deleteOrder: (req, res) => {
         try {
+            const order = list.getOrderById(req.params.id);
+            if(order.status === 'Pronto') {
+                return res.status(403).json({message: 'Não foi possível deletar o pedido pronto'});
+            }
             list.deleteOrder(req.params.id);
             res.status(200).json({message: 'Pedido deletado com sucesso!'});
         } catch (error) {
