@@ -12,7 +12,7 @@ const router = {
     addOrder: (req, res) => {
         try {
             const{clientName, type, description, price} = req.body;
-            if(!clientName || !type || !description || !price) {
+            if(!clientName || !type || !description || !price || !status) {
                 throw newError('Preencha todos os campos!')
             }
             const order = new Order(clientName, type, description, price);
@@ -35,7 +35,12 @@ const router = {
     getOrderById: (req, res) => {
         try {
             const id = req.params.id;
-            res.status(200).json(list.getOrderById(id));
+            const order = listing.getOrderById(id);
+            if(order) {
+                res.status(200).json({clientName: order.clientName, status: order.status});
+            } else {
+                res.status(404).json({message: 'Pedido não encontrado'})
+            }
         } catch (error) {
             res.status(404).json({message: 'Erro ao buscar pedido', error});
         }

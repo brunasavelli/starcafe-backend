@@ -1,4 +1,4 @@
-class ProductList {
+class OrderList {
     constructor() {
         this.orders = [];
     }
@@ -12,7 +12,7 @@ class ProductList {
     }
 
     getOrderById(id) {
-        const order = this.orders.find(order => order.id == id);
+        const order = this.orders.find((order) => order.id == id);
         if(!order) {
             throw new Error("Pedido não encontrado");
         }
@@ -24,4 +24,4 @@ class ProductList {
     }
 }
 
-module.exports = ProductList;
+module.exports = OrderList;
